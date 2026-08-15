@@ -32,7 +32,11 @@ func (p *Pool) Run(ctx context.Context, ids []string) {
 	go func() {
 		defer close(ch)
 		for _, id := range ids {
-			ch <- id
+			select {
+			case <-ctx.Done():
+				return
+			case ch <- id:
+			}
 		}
 	}()
 
@@ -41,6 +45,11 @@ func (p *Pool) Run(ctx context.Context, ids []string) {
 		go func() {
 			defer wg.Done()
 			for id := range ch {
+				select {
+				case <-ctx.Done():
+					return
+				default:
+				}
 				t, err := p.store.Get(id)
 				if err != nil {
 					continue
