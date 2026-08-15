@@ -78,8 +78,6 @@ func (s *Store) UpdateStatus(id string, status model.Status, result string) erro
 }
 
 func (s *Store) IncrementProcessed() {
-	s.mu.Lock()
-	defer s.mu.Unlock()
 	s.processed++
 }
 
