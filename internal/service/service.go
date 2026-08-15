@@ -33,7 +33,7 @@ func (svc *Service) Submit(id, payload string) (*model.Task, error) {
 func (svc *Service) Get(id string) (*model.Task, error) {
 	t, err := svc.store.Get(id)
 	if err != nil {
-		return nil, fmt.Errorf("get task %s: %v", id, err)
+		return nil, fmt.Errorf("get task %s: %w", id, err)
 	}
 	return t, nil
 }
