@@ -60,9 +60,7 @@ func (s *Store) List() []*model.Task {
 func (s *Store) IDs() []string {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	out := make([]string, len(s.order))
-	copy(out, s.order)
-	return out
+	return s.order
 }
 
 func (s *Store) UpdateStatus(id string, status model.Status, result string) error {
