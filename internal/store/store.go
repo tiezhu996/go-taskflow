@@ -21,6 +21,7 @@ type Store struct {
 
 func New() *Store {
 	return &Store{
+		tasks: make(map[string]*model.Task),
 		order: []string{},
 	}
 }
